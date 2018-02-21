@@ -17,7 +17,7 @@ server.use(bodyParser.json());
 const verifiedServer = express();
 const alexaRouter = express.Router(); // eslint-disable-line
 verifiedServer.use(alexaRouter);
-alexaRouter.use(verifier);
+alexaRouter.use(process.env.ALEXA_VERIFIER_PATH || '*', verifier);
 alexaRouter.use(bodyParser.json());
 
 // check for running ngrok tunnel
