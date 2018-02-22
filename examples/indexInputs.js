@@ -8,8 +8,10 @@ const webhook = require('../index').Webhook;
 const app = require('../index').Jovo;
 
 // Enable Logging for Quick Testing
-app.enableRequestLogging();
-app.enableResponseLogging();
+app.setConfig({
+    requestLogging: true,
+    responseLogging: true,
+});
 
 // Listen for post requests
 webhook.listen(3000, function() {
@@ -21,7 +23,6 @@ webhook.post('/webhook', function(req, res) {
     app.execute();
 });
 
-
 // =================================================================================
 // App Logic: Get name parameter and say hello
 // =================================================================================
@@ -29,7 +30,7 @@ webhook.post('/webhook', function(req, res) {
 let handlers = {
 
     'LAUNCH': function() {
-        app.tell('App launched.');
+        app.ask('What\'s your name?', 'Tell me your name, please.');
     },
 
     'NameIntent': function(name) {
